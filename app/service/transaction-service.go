@@ -29,6 +29,6 @@ func GetTransactions(username string) ([]models.Transaction, error) {
 	transactions := []models.Transaction{}
 	request.SetResult(&transactions)
 
-	_, err := request.Get(os.Getenv("API_TRANSACTION_BASE_URL") + "/transactions?username=" + username)
+	_, err := request.Get(os.Getenv("API_TRANSACTION_BASE_URL") + "/transaction?username=" + username)
 	return transactions, err
 }
