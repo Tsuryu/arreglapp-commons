@@ -21,3 +21,14 @@ func NewTransaction(transaction *models.Transaction, withSecurityCode bool) erro
 	_, err := request.Post(os.Getenv("API_TRANSACTION_BASE_URL") + "/transaction")
 	return err
 }
+
+// GetTransactions : fetch transactions by username
+func GetTransactions(username string) ([]models.Transaction, error) {
+	client := resty.New()
+	request := client.R()
+	transactions := []models.Transaction{}
+	request.SetResult(&transactions)
+
+	_, err := request.Get(os.Getenv("API_TRANSACTION_BASE_URL") + "/transactions?username=" + username)
+	return transactions, err
+}
