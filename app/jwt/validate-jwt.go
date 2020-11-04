@@ -10,14 +10,14 @@ import (
 )
 
 // ValidateJWT : validates a JWT to allow the user to keep working with the app
-func ValidateJWT(token string) (models.Claim, error) {
+func ValidateJWT(token string) (*models.Claim, error) {
 	jwtSecretKey := os.Getenv("JWT_SECRET_KEY")
 	myKey := []byte(jwtSecretKey)
 	claims := &models.Claim{}
 
 	splitToken := strings.Split(token, "Bearer")
 	if len(splitToken) != 2 {
-		return models.Claim{}, errors.New("Invalid token format")
+		return &models.Claim{}, errors.New("Invalid token format")
 	}
 
 	token = strings.TrimSpace(splitToken[1])
@@ -27,9 +27,8 @@ func ValidateJWT(token string) (models.Claim, error) {
 	})
 
 	if !tkn.Valid {
-		return models.Claim{}, errors.New("Invalid token")
+		return &models.Claim{}, errors.New("Invalid token")
 	}
 
-	claim := tkn.Claims.(models.Claim)
-	return claim, err
+	return tkn.Claims.(*models.Claim), err
 }
