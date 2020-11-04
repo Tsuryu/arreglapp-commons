@@ -30,5 +30,6 @@ func ValidateJWT(token string) (models.Claim, error) {
 		return models.Claim{}, errors.New("Invalid token")
 	}
 
-	return tkn.Claims.(models.Claim), err
+	claim := tkn.Claims.(models.Claim)
+	return claim, err
 }
