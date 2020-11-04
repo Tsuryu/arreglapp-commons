@@ -18,5 +18,9 @@ func ValidateJwt(context *gin.Context) {
 		return
 	}
 
+	if context.Keys == nil {
+		context.Keys = make(map[string]interface{})
+	}
+
 	context.Keys["claims"] = claims
 }
