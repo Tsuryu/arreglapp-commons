@@ -11,10 +11,12 @@ import (
 func ValidateJwt(context *gin.Context) {
 	auth := context.GetHeader("Authorization")
 
-	err := jwt.ValidateJWT(auth)
+	claims, err := jwt.ValidateJWT(auth)
 	if err != nil {
 		context.JSON(http.StatusUnauthorized, gin.H{"message": "Invalid credentials"})
 		context.Abort()
 		return
 	}
+
+	context.Keys["claims"] = claims
 }
