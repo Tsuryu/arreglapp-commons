@@ -37,6 +37,18 @@ func GetTransactions(transaction models.Transaction) ([]models.Transaction, erro
 	return transactions, err
 }
 
+// AddTransactionDetail : add details to transaction
+func AddTransactionDetail(detail models.TransactionDetail, traceID, securityCode string) (bool, error) {
+	client := resty.New()
+
+	request := client.R()
+	request.SetBody(detail)
+	request.SetHeader("security-code", securityCode)
+
+	response, err := request.Post(os.Getenv("API_TRANSACTION_BASE_URL") + "/transaction/" + traceID + "/detail")
+	return response.StatusCode() == 201, err
+}
+
 func addParam(endpoint, key, value string) string {
 	if value != "" {
 		if endpoint[len(endpoint)-1:] != "?" {
