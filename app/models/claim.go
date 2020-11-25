@@ -11,5 +11,6 @@ type Claim struct {
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
 	Phone     string `json:"phone"`
+	Token     string `json:"token"`
 	jwt.StandardClaims
 }
