@@ -6,7 +6,7 @@ import "github.com/gin-gonic/gin"
 func GetContextKey(context *gin.Context, key string, value interface{}) interface{} {
 	if context.Keys != nil {
 		return context.Keys[key]
-	} else {
-		return nil
 	}
+
+	return nil
 }
