@@ -22,6 +22,19 @@ func NewTransaction(transaction *models.Transaction, withSecurityCode bool) erro
 	return err
 }
 
+// GetTransaction : fetch transaction by id
+func GetTransaction(traceID string) (models.Transaction, error) {
+	client := resty.New()
+	request := client.R()
+	transaction := models.Transaction{}
+	request.SetResult(&transaction)
+
+	endpoint := "/transaction/" + traceID
+
+	_, err := request.Get(os.Getenv("API_TRANSACTION_BASE_URL") + endpoint)
+	return transaction, err
+}
+
 // GetTransactions : fetch transactions by username
 func GetTransactions(transaction models.Transaction) ([]models.Transaction, error) {
 	client := resty.New()
