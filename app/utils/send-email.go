@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"net/smtp"
 	"os"
 
@@ -20,5 +21,8 @@ func SendEmail(destinataryEmail string, otp string) {
 	e.Subject = "Codigo"
 	// e.Text = []byte("Activa tu cuenta")
 	e.HTML = []byte("<p>Utiliza el siguente codigo para seguir operando en arreglapp:  " + otp + " </p>")
-	e.Send(protocol+":"+protocolPort, smtp.PlainAuth("", emailAddress, emailPassword, protocol))
+	err := e.Send(protocol+":"+protocolPort, smtp.PlainAuth("", emailAddress, emailPassword, protocol))
+	if err != nil {
+		fmt.Println(err)
+	}
 }
